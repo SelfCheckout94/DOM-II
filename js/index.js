@@ -1,4 +1,7 @@
 // Selector Variables
+const nav = document.querySelector(".main-navigation");
+const background = document.querySelector("body");
+
 const home = document.querySelector(".home");
 const homeH2 = home.querySelector("h2");
 const homeP = home.querySelector("p");
@@ -9,9 +12,18 @@ const topContentP = home.querySelector(".content-section p");
 const topContentP2 = topContentP.nextElementSibling;
 const topImg = home.querySelector("div.img-content img");
 
-console.log(topImg);
+const midContentH2 = home.querySelector(".inverse-content h2");
+const midContentP = home.querySelector(".inverse-content div.text-content p");
+const midContentP2 = midContentP.nextElementSibling;
+const midImg = home.querySelector(".inverse-content div.img-content img");
+
+const botImg = document.querySelector("section.content-destination img");
+console.log(botImg);
 
 // Event Listeners
+
+// Nav Listeners
+document.addEventListener("wheel", () => (nav.style.backgroundColor = "cyan"));
 
 // Header Listeners
 homeH2.addEventListener(
@@ -70,3 +82,69 @@ document.addEventListener("keydown", (e) => {
     topImg.src = "https://picsum.photos/376/282";
   }
 });
+
+// Mid Event Listeners
+
+document.addEventListener("scroll", (e) => {
+  background.style.backgroundColor = "salmon";
+  e.preventDefault();
+});
+
+// Drag & Drop
+
+const dropDiv = document.createElement("div");
+dropDiv.style.width = "auto";
+dropDiv.style.backgroundColor = "crimson";
+
+botImg.insertAdjacentElement("afterend", dropDiv);
+
+let dragged;
+
+document.addEventListener("drag", (e) => {}, false);
+document.addEventListener(
+  "dragstart",
+  (e) => {
+    dragged = e.target;
+    e.target.style.opacity = 0.5;
+  },
+  false
+);
+document.addEventListener(
+  "dragend",
+  (e) => {
+    e.target.style.opacity = "";
+  },
+  false
+);
+document.addEventListener(
+  "dragover",
+  (e) => {
+    e.preventDefault();
+  },
+  false
+);
+document.addEventListener(
+  "dragenter",
+  (e) => {
+    e.target.style.backgroundColor = "indigo";
+  },
+  false
+);
+document.addEventListener(
+  "dragleave",
+  (e) => {
+    e.target.style.backgroundColor = "";
+  },
+  false
+);
+
+document.addEventListener(
+  "drop",
+  (e) => {
+    e.preventDefault();
+    e.target.style.background = "";
+    dragged.parentNode.removeChild(dragged);
+    e.target.appendChild(dragged);
+  },
+  false
+);
